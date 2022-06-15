@@ -35,14 +35,19 @@ const History: NextPage = () => {
 
       <main className={styles.main}>
         <div>
+          <Link href="./">
+            <a>トップページ・</a>
+          </Link>
           <Link href="history">
             <a>API履歴</a>
           </Link>
-          <Link href="./">
-            <a>トップページ</a>
-          </Link>
         </div>
+        <br />
+        <br />
+
         <h1 className={styles.title}>API履歴</h1>
+        <br />
+        <br />
 
         <div>
           {apiHistory &&
@@ -63,6 +68,10 @@ const History: NextPage = () => {
               </span>
             ))}
         </div>
+        <br />
+        <br />
+
+        <div>レスポンス生データ</div>
         <div>{apiHistory && <div>{JSON.stringify(apiHistory)}</div>}</div>
 
         {/* <div>

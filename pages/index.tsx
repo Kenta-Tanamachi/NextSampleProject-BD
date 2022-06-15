@@ -69,16 +69,17 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <div>
+          <Link href="./">
+            <a>トップページ・</a>
+          </Link>
           <Link href="history">
             <a>API履歴</a>
           </Link>
-          <Link href="./">
-            <a>トップページ</a>
-          </Link>
         </div>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <br />
+        <br />
+
+        <h1 className={styles.title}>トップページ</h1>
 
         {/* <h2>{apiSample.text}</h2> */}
 
@@ -96,12 +97,19 @@ const Home: NextPage = () => {
             }}
           />
         </div>
+
+        <div>画像URL</div>
         <div>{apiSample.sprites?.front_default}</div>
+        <br />
+        <br />
 
         <div>
           <button onClick={onClickApiGet}>API GET</button>
         </div>
+        <br />
+        <br />
 
+        <div>レスポンス生データ</div>
         <div>{JSON.stringify(apiSample)}</div>
       </main>
 
