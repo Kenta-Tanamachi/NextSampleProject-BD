@@ -12,7 +12,7 @@ import { getRandom } from '../ts/util';
 import { Audio } from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
-import Header from './header';
+import Header from './Header';
 
 const Home: NextPage = () => {
   const [apiSample, setApiSample] = useRecoilState(apiState);
