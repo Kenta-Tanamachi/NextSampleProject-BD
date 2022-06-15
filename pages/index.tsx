@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.css';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import apiState from '../state/apiState';
 import apiStateB from '../state/apiStateResponseHistory';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { getRandom } from '../ts/util';
 
@@ -20,6 +20,8 @@ const Home: NextPage = () => {
   // 読込中
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const imgElement = useRef(null);
+
   // useEffect(() => {
   //   const res = fetch('https://pokeapi.co/api/v2/pokemon/ditto');
   //   console.log('res', res);
@@ -27,6 +29,15 @@ const Home: NextPage = () => {
 
   const onClickApiGet = async () => {
     console.log('onClickApiGet');
+
+    console.log(imgElement);
+    console.log(imgElement.current);
+    // e.target.dataset.load
+
+    if (imgElement && imgElement.current) {
+      // @ts-ignore
+      imgElement.current.dataset.load = 'load';
+    }
 
     // ローディング状態に
     setIsLoading(true);
@@ -75,7 +86,11 @@ const Home: NextPage = () => {
   };
 
   const onLoad = (e: any) => {
-    if (e.target.srcset) {
+    // console.log('onLoad', e);
+    // console.log(e.target.srcset);
+    // e.target.dataset.load = 'loading';
+
+    if (e.target.src) {
       e.target.dataset.load = 'done';
     }
   };
@@ -90,10 +105,10 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <div>
-          <Link href="./">
+          <Link href="/">
             <a>トップページ・</a>
           </Link>
-          <Link href="history">
+          <Link href="/history">
             <a>API履歴</a>
           </Link>
         </div>
@@ -105,7 +120,7 @@ const Home: NextPage = () => {
         {/* <h2>{apiSample.text}</h2> */}
 
         <div>
-          <Image
+          <img
             src={
               apiSample.sprites?.front_default ||
               `https://placehold.jp/32/003060/e0e0e0/300x200.png?text=hoge`
@@ -118,6 +133,7 @@ const Home: NextPage = () => {
             }}
             className={styles.image}
             onLoad={onLoad}
+            ref={imgElement}
           />
         </div>
 
@@ -145,7 +161,7 @@ const Home: NextPage = () => {
           // className={`spinner ${isLoading === true ? 'fade-in' : ''}`}
           className={`spinner`}
           style={{
-            transition: '0.3s',
+            transition: '0.4s',
             opacity: isLoading ? 0.8 : 0,
             zIndex: isLoading ? 1000000 : -1000000,
             // width: isLoading ? '100vw' : 0,
@@ -183,7 +199,7 @@ const Home: NextPage = () => {
         >
           Powered by{' '}
           <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+            <img src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>

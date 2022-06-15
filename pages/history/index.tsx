@@ -35,10 +35,10 @@ const History: NextPage = () => {
 
       <main className={styles.main}>
         <div>
-          <Link href="./">
+          <Link href="/">
             <a>トップページ・</a>
           </Link>
-          <Link href="history">
+          <Link href="/history">
             <a>API履歴</a>
           </Link>
         </div>
@@ -53,7 +53,7 @@ const History: NextPage = () => {
           {apiHistory &&
             apiHistory.map((data: any, i: number) => (
               <span key={i}>
-                <Image
+                <img
                   src={
                     data.sprites?.front_default ||
                     `https://placehold.jp/32/003060/e0e0e0/300x200.png?text=hoge`
@@ -89,7 +89,7 @@ const History: NextPage = () => {
         >
           Powered by{' '}
           <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+            <img src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
