@@ -10,12 +10,9 @@ import { atom } from 'recoil';
 //   apiResponseHistory: any[];
 // };
 
-const apiState = atom({
+const apiState = atom<any>({
   key: 'api.state',
-  default: {
-    apiResponse: {},
-    // apiResponseHistory: [],
-  },
+  default: {},
 });
 
 export default apiState;

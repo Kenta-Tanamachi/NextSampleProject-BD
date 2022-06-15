@@ -46,7 +46,7 @@ const Home: NextPage = () => {
       // body: JSON.stringify(data), // 本文のデータ型は "Content-Type" ヘッダーと一致させる必要があります
     });
     // console.log('res', await res.json());
-    const resJson = await res.json();
+    const resJson: never = (await res.json()) as never;
     console.log('resJson', resJson);
 
     console.log(apiSample);
@@ -57,7 +57,8 @@ const Home: NextPage = () => {
     // historyArray.push(resJson);
 
     console.log('apiResponseHistory', apiResponseHistory);
-    const apiResponseHistoryPayload: any[] = apiResponseHistory.concat();
+    const apiResponseHistoryPayload: never[] =
+      apiResponseHistory.concat() as never[];
     apiResponseHistoryPayload.push(resJson);
     setApiResponseHistory(apiResponseHistoryPayload);
 
@@ -73,7 +74,7 @@ const Home: NextPage = () => {
     setIsLoading(false);
   };
 
-  const onLoad = (e) => {
+  const onLoad = (e: any) => {
     if (e.target.srcset) {
       e.target.dataset.load = 'done';
     }
