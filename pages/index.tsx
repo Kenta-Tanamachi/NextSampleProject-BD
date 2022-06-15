@@ -132,6 +132,7 @@ const Home: NextPage = () => {
               e.currentTarget.src = `https://placehold.jp/32/003060/e0e0e0/300x200.png?text=hoge`;
             }}
             className={styles.image}
+            data-load="done"
             onLoad={onLoad}
             ref={imgElement}
           />

@@ -117,10 +117,14 @@
 
 .image{
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.3s ease;
+}
+
+.image[data-load='loading'] {
+  opacity: 0;
 }
 
 .image[data-load='done'] {
-    opacity: 1;
+  opacity: 1;
 }
 
