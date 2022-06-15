@@ -114,3 +114,13 @@
     flex-direction: column;
   }
 }
+
+.image{
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.image[data-load='done'] {
+    opacity: 1;
+}
+

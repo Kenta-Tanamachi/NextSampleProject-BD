@@ -14,3 +14,74 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.spinner{
+  background-color:darkslategrey;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;
+  /* opacity: 0.5; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* display: none; */
+  /* z-index: -10000000; */
+}
+
+.spinner > div{
+  /* background-color: blue; */
+  margin-left: auto;
+  margin-right: auto;
+  /* margin-top: 300px; */
+  width: 100px;
+}
+
+.fade-in{
+  display: block;
+
+  animation-name: fadeInAnime;
+  animation-fill-mode:backwards;
+  animation-duration:1s;
+  /* animation-iteration-count:infinite; */
+  animation-timing-function:ease;
+  animation-delay: 0.2s;
+  animation-direction:normal;
+}
+
+.fade-out{
+  display: block;
+
+  animation-name: fadeOutAnime;
+  animation-fill-mode:backwards;
+  animation-duration:1s;
+  /* animation-iteration-count:infinite; */
+  animation-timing-function:ease;
+  animation-delay: 0.2s;
+  animation-direction:normal;
+}
+
+@keyframes fadeInAnime{
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes fadeOutAnime{
+  0% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

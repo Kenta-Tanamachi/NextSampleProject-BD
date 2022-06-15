@@ -5,14 +5,20 @@ import styles from '../styles/Home.module.css';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import apiState from '../state/apiState';
 import apiStateB from '../state/apiStateResponseHistory';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getRandom } from '../ts/util';
+
+import { Audio } from 'react-loader-spinner';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 const Home: NextPage = () => {
   const [apiSample, setApiSample] = useRecoilState(apiState);
   // const apiResponseHistory = useRecoilValue(apiStateB);
   const [apiResponseHistory, setApiResponseHistory] = useRecoilState(apiStateB);
+
+  // 読込中
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // useEffect(() => {
   //   const res = fetch('https://pokeapi.co/api/v2/pokemon/ditto');
@@ -20,6 +26,11 @@ const Home: NextPage = () => {
   // }, []);
 
   const onClickApiGet = async () => {
+    console.log('onClickApiGet');
+
+    // ローディング状態に
+    setIsLoading(true);
+
     const num: number = getRandom(1, 151);
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${num}`, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -57,6 +68,15 @@ const Home: NextPage = () => {
     };
 
     setApiSample(resJson);
+
+    // ローディング状態解除
+    setIsLoading(false);
+  };
+
+  const onLoad = (e) => {
+    if (e.target.srcset) {
+      e.target.dataset.load = 'done';
+    }
   };
 
   return (
@@ -95,6 +115,8 @@ const Home: NextPage = () => {
             onError={(e) => {
               e.currentTarget.src = `https://placehold.jp/32/003060/e0e0e0/300x200.png?text=hoge`;
             }}
+            className={styles.image}
+            onLoad={onLoad}
           />
         </div>
 
@@ -117,6 +139,39 @@ const Home: NextPage = () => {
 
         <div>レスポンス生データ</div>
         <div>{JSON.stringify(apiSample)}</div>
+
+        <div
+          // className={`spinner ${isLoading === true ? 'fade-in' : ''}`}
+          className={`spinner`}
+          style={{
+            transition: '0.3s',
+            opacity: isLoading ? 0.7 : 0,
+            zIndex: isLoading ? 1000000 : -1000000,
+            // width: isLoading ? '60vw' : 0,
+          }}
+        >
+          <div>
+            <Audio
+              color="#00BFFF"
+              height={100}
+              width={100}
+              // timeout={3000} //3 secs
+            />
+          </div>
+        </div>
+
+        {/* {isLoading && (
+          <div className="spinner">
+            <div>
+              <Audio
+                color="#00BFFF"
+                height={100}
+                width={100}
+                // timeout={3000} //3 secs
+              />
+            </div>
+          </div>
+        )} */}
       </main>
 
       <footer className={styles.footer}>
