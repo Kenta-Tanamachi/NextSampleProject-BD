@@ -85,3 +85,12 @@ a {
     opacity: 0;
   }
 }
+
+.header{
+  background-color: #7fbfff;
+  padding: 16px 16px;
+  text-align: center;
+  color: white;
+  font-size: 150%;
+  font-weight: bold;
+}
