@@ -4,49 +4,26 @@ import Image from 'next/image';
 // import styles from '../styles/Home.module.css';
 import styles from '../../styles/Home.module.css';
 
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import apiState from '../../state/apiState';
+import apiStateB from '../../state/apiStateResponseHistory';
+import apiSelector from '../../state/apiSelector';
 import { useEffect } from 'react';
 import Link from 'next/link';
 
 const History: NextPage = () => {
-  const [apiSample, setApiSample] = useRecoilState(apiState);
+  // const [apiSample, setApiSample] = useRecoilState(apiState);
+
+  // const apiHistory: any = useRecoilValue(apiSelector);
+  // const [apiResponseHistory, setApiResponseHistory] = useRecoilState(apiStateB);
+  const apiHistory: any[] = useRecoilValue(apiStateB);
+
+  console.log('apiHistory', apiHistory);
 
   // useEffect(() => {
   //   const res = fetch('https://pokeapi.co/api/v2/pokemon/ditto');
   //   console.log('res', res);
   // }, []);
-
-  const onClickApiGet = async () => {
-    const res = await fetch('https://pokeapi.co/api/v2/pokemon/pikachu/', {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json',
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      // body: JSON.stringify(data), // 本文のデータ型は "Content-Type" ヘッダーと一致させる必要があります
-    });
-    // console.log('res', await res.json());
-    const resJson = await res.json();
-    console.log('resJson', resJson);
-
-    // 履歴に追加
-    const historyArray = apiSample.apiResponseHistory;
-    historyArray.push(resJson);
-
-    const payload = {
-      ...apiSample,
-      apiResponse: resJson,
-      apiResponseHistory: [],
-    };
-
-    setApiSample(payload);
-  };
 
   return (
     <div className={styles.container}>
@@ -68,20 +45,25 @@ const History: NextPage = () => {
         <h1 className={styles.title}>API履歴</h1>
 
         <div>
-          <Image
-            src={
-              apiSample.apiResponse.sprites?.front_default ||
-              `https://placehold.jp/32/003060/e0e0e0/300x200.png?text=hoge`
-            }
-            width={320}
-            height={320}
-            alt="pika"
-            onError={(e) => {
-              e.currentTarget.src = `https://placehold.jp/32/003060/e0e0e0/300x200.png?text=hoge`;
-            }}
-          />
+          {apiHistory &&
+            apiHistory.map((data: any, i: number) => (
+              <span key={i}>
+                <Image
+                  src={
+                    data.sprites?.front_default ||
+                    `https://placehold.jp/32/003060/e0e0e0/300x200.png?text=hoge`
+                  }
+                  width={160}
+                  height={160}
+                  alt="pika"
+                  onError={(e) => {
+                    e.currentTarget.src = `https://placehold.jp/32/003060/e0e0e0/300x200.png?text=hoge`;
+                  }}
+                />
+              </span>
+            ))}
         </div>
-        <div>{apiSample.apiResponse.sprites?.front_default}</div>
+        <div>{apiHistory && <div>{JSON.stringify(apiHistory)}</div>}</div>
 
         {/* <div>
           <button onClick={onClickApiGet}>API GET</button>

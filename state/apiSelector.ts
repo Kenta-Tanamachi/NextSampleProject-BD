@@ -5,11 +5,11 @@ const apiSelector = selector({
   // ユニークキー
   key: 'api.selector',
   // 取得用
-  get: ({ get }): number => {
+  get: ({ get }): any[] => {
     // getの引数にstateを渡す
     const obj = get(apiState);
 
-    return obj.text.length;
+    return obj.apiResponseHistory;
   },
 });
 

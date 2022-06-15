@@ -2,14 +2,17 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import apiState from '../state/apiState';
+import apiStateB from '../state/apiStateResponseHistory';
 import { useEffect } from 'react';
 import Link from 'next/link';
+import { getRandom } from '../ts/util';
 
 const Home: NextPage = () => {
   const [apiSample, setApiSample] = useRecoilState(apiState);
+  // const apiResponseHistory = useRecoilValue(apiStateB);
+  const [apiResponseHistory, setApiResponseHistory] = useRecoilState(apiStateB);
 
   // useEffect(() => {
   //   const res = fetch('https://pokeapi.co/api/v2/pokemon/ditto');
@@ -17,7 +20,8 @@ const Home: NextPage = () => {
   // }, []);
 
   const onClickApiGet = async () => {
-    const res = await fetch('https://pokeapi.co/api/v2/pokemon/pikachu/', {
+    const num: number = getRandom(1, 151);
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${num}`, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -33,6 +37,24 @@ const Home: NextPage = () => {
     // console.log('res', await res.json());
     const resJson = await res.json();
     console.log('resJson', resJson);
+
+    console.log(apiSample);
+
+    // 履歴に追加
+    // const historyArray: any[] = apiSample.apiResponseHistory as any[];
+    // console.log(historyArray);
+    // historyArray.push(resJson);
+
+    console.log('apiResponseHistory', apiResponseHistory);
+    const apiResponseHistoryPayload: any[] = apiResponseHistory.concat();
+    apiResponseHistoryPayload.push(resJson);
+    setApiResponseHistory(apiResponseHistoryPayload);
+
+    const payload = {
+      ...apiSample,
+      apiResponse: resJson,
+      apiResponseHistory: [],
+    };
 
     setApiSample(resJson);
   };
