@@ -1,14 +1,15 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../styles/Home.module.css';
+// import styles from '../styles/Home.module.css';
+import styles from '../../styles/Home.module.css';
 
 import { useRecoilState } from 'recoil';
-import apiState from '../state/apiState';
+import apiState from '../../state/apiState';
 import { useEffect } from 'react';
 import Link from 'next/link';
 
-const Home: NextPage = () => {
+const History: NextPage = () => {
   const [apiSample, setApiSample] = useRecoilState(apiState);
 
   // useEffect(() => {
@@ -34,7 +35,17 @@ const Home: NextPage = () => {
     const resJson = await res.json();
     console.log('resJson', resJson);
 
-    setApiSample(resJson);
+    // 履歴に追加
+    const historyArray = apiSample.apiResponseHistory;
+    historyArray.push(resJson);
+
+    const payload = {
+      ...apiSample,
+      apiResponse: resJson,
+      apiResponseHistory: [],
+    };
+
+    setApiSample(payload);
   };
 
   return (
@@ -54,16 +65,12 @@ const Home: NextPage = () => {
             <a>トップページ</a>
           </Link>
         </div>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        {/* <h2>{apiSample.text}</h2> */}
+        <h1 className={styles.title}>API履歴</h1>
 
         <div>
           <Image
             src={
-              apiSample.sprites?.front_default ||
+              apiSample.apiResponse.sprites?.front_default ||
               `https://placehold.jp/32/003060/e0e0e0/300x200.png?text=hoge`
             }
             width={320}
@@ -74,13 +81,13 @@ const Home: NextPage = () => {
             }}
           />
         </div>
-        <div>{apiSample.sprites?.front_default}</div>
+        <div>{apiSample.apiResponse.sprites?.front_default}</div>
 
-        <div>
+        {/* <div>
           <button onClick={onClickApiGet}>API GET</button>
         </div>
 
-        <div>{JSON.stringify(apiSample)}</div>
+        <div>{JSON.stringify(apiSample)}</div> */}
       </main>
 
       <footer className={styles.footer}>
@@ -99,4 +106,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default History;

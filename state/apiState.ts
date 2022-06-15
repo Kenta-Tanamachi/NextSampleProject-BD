@@ -3,7 +3,8 @@ import { atom } from 'recoil';
 const apiState = atom({
   key: 'api.state',
   default: {
-    obj: {},
+    apiResponse: {},
+    apiResponseHistory: [],
   },
 });
 
