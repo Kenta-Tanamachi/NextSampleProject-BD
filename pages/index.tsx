@@ -98,6 +98,12 @@ const Home: NextPage = () => {
           />
         </div>
 
+        {/* <div>画像URL</div> */}
+        <div>No：{apiSample.order}</div>
+        <div>Name：{apiSample.name}</div>
+        <br />
+        <br />
+
         <div>画像URL</div>
         <div>{apiSample.sprites?.front_default}</div>
         <br />
