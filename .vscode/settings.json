@@ -1,0 +1,34 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.format.enable": false,
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // 行番号表示
+  "editor.lineNumbers": "on",
+  // 行の折り返し表示
+  "editor.wordWrap": "on",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "eslint.packageManager": "yarn",
+  "npm.packageManager": "yarn",
+  // ユーザ設定よりworkspaceのtsを優先させる
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  // tabサイズ
+  "editor.tabSize": 2
+}
