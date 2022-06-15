@@ -71,8 +71,8 @@ const History: NextPage = () => {
         <br />
         <br />
 
-        <div>レスポンス生データ</div>
-        <div>{apiHistory && <div>{JSON.stringify(apiHistory)}</div>}</div>
+        {/* <div>レスポンス生データ</div>
+        <div>{apiHistory && <div>{JSON.stringify(apiHistory)}</div>}</div> */}
 
         {/* <div>
           <button onClick={onClickApiGet}>API GET</button>

@@ -145,9 +145,9 @@ const Home: NextPage = () => {
           className={`spinner`}
           style={{
             transition: '0.3s',
-            opacity: isLoading ? 0.7 : 0,
+            opacity: isLoading ? 0.8 : 0,
             zIndex: isLoading ? 1000000 : -1000000,
-            // width: isLoading ? '60vw' : 0,
+            // width: isLoading ? '100vw' : 0,
           }}
         >
           <div>
