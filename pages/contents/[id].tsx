@@ -32,6 +32,7 @@ const ContentsId: NextPage<Props> = ({ pokemon }) => {
   // }, []);
 
   console.log('pokemon', pokemon);
+  console.log('front_default', pokemon.sprites.front_default);
 
   // const [apiSample, setApiSample] = useRecoilState(apiState);
   // const apiResponseHistory = useRecoilValue(apiStateB);
@@ -90,7 +91,7 @@ const ContentsId: NextPage<Props> = ({ pokemon }) => {
 
           <div>
             <img
-              src={pokemon.front_default}
+              src={pokemon.sprites.front_default}
               width={320}
               height={320}
               alt="pika"
