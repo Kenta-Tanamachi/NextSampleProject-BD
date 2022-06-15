@@ -8,9 +8,10 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import apiState from '../../state/apiState';
 import apiStateB from '../../state/apiStateResponseHistory';
 import apiSelector from '../../state/apiSelector';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Header from '../Header';
+import { getRandom } from '../../ts/util';
 
 type Props = {
   pokemon: any;
@@ -31,6 +32,46 @@ const ContentsId: NextPage<Props> = ({ pokemon }) => {
   // }, []);
 
   console.log('pokemon', pokemon);
+
+  // const [apiSample, setApiSample] = useRecoilState(apiState);
+  // const apiResponseHistory = useRecoilValue(apiStateB);
+  const [apiResponseHistory, setApiResponseHistory] = useRecoilState(apiStateB);
+
+  // 読込中
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // データ
+  const [pokemonState, setPokemonState] = useState<any>({ hoge: 'null' });
+
+  const onClickApiGet = async () => {
+    console.log('onClickApiGet');
+
+    // ローディング状態に
+    setIsLoading(true);
+
+    const num: number = getRandom(1, 151);
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${num}`, {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      // body: JSON.stringify(data), // 本文のデータ型は "Content-Type" ヘッダーと一致させる必要があります
+    });
+    // console.log('res', await res.json());
+    const resJson: never = (await res.json()) as never;
+    console.log('resJson', resJson);
+
+    setPokemonState(resJson);
+
+    // ローディング状態解除
+    setIsLoading(false);
+  };
 
   return (
     <>
@@ -63,9 +104,25 @@ const ContentsId: NextPage<Props> = ({ pokemon }) => {
             />
           </div>
 
+          <br />
+          <br />
+
           {/* <div>画像URL</div> */}
           <div>No：{pokemon.order}</div>
           <div>Name：「{pokemon.name}」</div>
+
+          <br />
+          <br />
+
+          <div>
+            <button onClick={onClickApiGet}>新規API通信</button>
+          </div>
+
+          <br />
+          <br />
+
+          <div>新規fetchデータ</div>
+          <div>{JSON.stringify(pokemonState)}</div>
 
           {/* <div>{JSON.stringify(pokemon)}</div> */}
           {/* <div>{pokemon.name}</div> */}
