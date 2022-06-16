@@ -1,8 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { db } from '../firebase.config';
 import { collection, where, WhereFilterOp } from 'firebase/firestore';
 import { useFirestoreQuery } from '@react-query-firebase/firestore';
 import { query } from 'firebase/firestore';
-import '@react-query-firebase/firestore';
 
 export type WhereQueryType = {
   column: string;
@@ -21,9 +21,13 @@ const getFireStoreSnapShot = (
     collection(db, tableName),
     where(whereQuery.column, whereQuery.operator, whereQuery.value)
   );
-  // const usersQuery = useFirestoreQuery(['users'], ref);
-  // return usersQuery;
-  return undefined;
+  console.log('ref', ref);
+  // return undefined;
+
+  const usersQuery = useFirestoreQuery(tableName, ref);
+  console.log('usersQuery', usersQuery);
+
+  return usersQuery;
 };
 
 export default getFireStoreSnapShot;

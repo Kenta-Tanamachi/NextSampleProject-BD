@@ -13,6 +13,7 @@ import { Audio } from 'react-loader-spinner';
 // import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 import Header from './Header';
+import getFireStoreSnapShot from '../ts/getFireStoreSnapShot';
 
 // ルートインデックス
 const Home: NextPage = () => {
@@ -22,10 +23,25 @@ const Home: NextPage = () => {
   const [apiResponseHistory, setApiResponseHistory] = useRecoilState(apiStateB);
 
   // 読込中
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingMy, setIsLoading] = useState<boolean>(false);
 
   // 画像エレメント
   const imgElement = useRef(null);
+
+  // 条件を指定してデータ（スナップショット）取得
+  const tableName: string = 'musics';
+  const whereQuery: any = {
+    column: 'artist',
+    operator: '==',
+    value: 'Deep Purple',
+  };
+
+  const {
+    data: snapshot,
+    isLoading,
+    error,
+  } = getFireStoreSnapShot(tableName, whereQuery);
+  // console.log('resFS', resFS);
 
   // onClickで発火するイベント。API通信（GET）を行う
   const onClickApiGet = async () => {
@@ -115,6 +131,13 @@ const Home: NextPage = () => {
 
           {/* <h2>{apiSample.text}</h2> */}
 
+          {/* firestoreのデータ表示 */}
+          <div>query</div>
+          {snapshot &&
+            snapshot.docs.map((row: any, i: number) => (
+              <div key={i}>{JSON.stringify(row.data())}</div>
+            ))}
+
           {/* 画像表示 */}
           <div>
             <img
@@ -165,8 +188,8 @@ const Home: NextPage = () => {
             className={`spinner`}
             style={{
               transition: '0.4s',
-              opacity: isLoading ? 0.8 : 0,
-              zIndex: isLoading ? 1000000 : -1000000,
+              opacity: isLoadingMy ? 0.8 : 0,
+              zIndex: isLoadingMy ? 1000000 : -1000000,
               // width: isLoading ? '100vw' : 0,
             }}
           >
