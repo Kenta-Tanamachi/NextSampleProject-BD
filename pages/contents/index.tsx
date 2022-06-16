@@ -12,20 +12,8 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import Header from '../Header';
 
-const List: NextPage = () => {
-  // const [apiSample, setApiSample] = useRecoilState(apiState);
-
-  // const apiHistory: any = useRecoilValue(apiSelector);
-  // const [apiResponseHistory, setApiResponseHistory] = useRecoilState(apiStateB);
-  // const apiHistory: any[] = useRecoilValue(apiStateB);
-
-  // console.log('apiHistory', apiHistory);
-
-  // useEffect(() => {
-  //   const res = fetch('https://pokeapi.co/api/v2/pokemon/ditto');
-  //   console.log('res', res);
-  // }, []);
-
+// SSG用一覧ページ
+const Contents: NextPage = () => {
   const pokemons = [
     {
       order: 1,
@@ -56,6 +44,7 @@ const List: NextPage = () => {
           <br />
           <br />
 
+          {/* 一覧 */}
           <ul>
             {pokemons.map((pokemon: any) => (
               <li key={pokemon.order}>
@@ -84,15 +73,4 @@ const List: NextPage = () => {
   );
 };
 
-// //SSG処理
-// export const getStaticProps = async () => {
-//   const res = await fetch('http://localhost:3001/blog');
-//   const json = await res.json();
-//   return {
-//     props: {
-//       blog: json.contents,
-//     },
-//   };
-// };
-
-export default List;
+export default Contents;

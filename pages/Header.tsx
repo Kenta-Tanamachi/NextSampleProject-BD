@@ -1,17 +1,7 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import apiState from '../state/apiState';
-import apiStateB from '../state/apiStateResponseHistory';
-import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { getRandom } from '../ts/util';
 
-import { Audio } from 'react-loader-spinner';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-
+// ヘッダーコンポーネント
 const Header: NextPage = () => {
   return (
     <div className="header">
