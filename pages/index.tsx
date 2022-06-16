@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { getRandom } from '../ts/util';
 
 import { Audio } from 'react-loader-spinner';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+// import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 import Header from './Header';
 
@@ -110,6 +110,8 @@ const Home: NextPage = () => {
           <br />
 
           <h1 className={styles.title}>トップページ</h1>
+          <br />
+          <br />
 
           {/* <h2>{apiSample.text}</h2> */}
 

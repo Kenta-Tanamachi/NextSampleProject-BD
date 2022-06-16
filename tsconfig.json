@@ -20,7 +20,8 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/index.tsx_",
-    "pages/list/index.tsx_"
+    "pages/list/index.tsx_",
+    "pages/api/hello.ts_"
   ],
   "exclude": ["node_modules"]
 }
