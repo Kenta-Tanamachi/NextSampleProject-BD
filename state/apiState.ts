@@ -1,15 +1,6 @@
 import { atom } from 'recoil';
 
-// type AAA = {
-//   key: string;
-//   default: Obj;
-// };
-
-// type Obj = {
-//   apiResponse: object;
-//   apiResponseHistory: any[];
-// };
-
+// APIのレスポンスを格納する
 const apiState = atom<any>({
   key: 'api.state',
   default: {},
