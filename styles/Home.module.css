@@ -115,7 +115,11 @@
   }
 }
 
-.image{
+.image {
+  margin-top: 1rem;
+  border-radius: 10px;
+  border: 2px solid #eaeaea;
+  box-shadow: 10px 5px 5px #dddddd;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -128,3 +132,41 @@
   opacity: 1;
 }
 
+.stringNo {
+  font-size: 150%;
+  font-weight: bold;
+  color: darkcyan;
+}
+
+.stringName {
+  font-size: 200%;
+  font-weight: bold;
+  color: navy;
+}
+
+.stringImg {
+  font-size: 150%;
+  font-weight: bold;
+  color: olivedrab;
+}
+
+.buttonGet {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.buttonGet button {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.buttonGet button:hover {
+  background-color: #0070f3;
+}
+
+.buttonGet > button {
+  color: red;
+  font-weight: bold;
+}

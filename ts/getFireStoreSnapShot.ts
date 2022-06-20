@@ -15,17 +15,17 @@ const getFireStoreSnapShot = (
   tableName: string,
   whereQuery: WhereQueryType
 ) => {
-  console.log('getFireStoreSnapShot');
+  // console.log('getFireStoreSnapShot');
 
   const ref = query(
     collection(db, tableName),
     where(whereQuery.column, whereQuery.operator, whereQuery.value)
   );
-  console.log('ref', ref);
+  // console.log('ref', ref);
   // return undefined;
 
   const usersQuery = useFirestoreQuery(tableName, ref);
-  console.log('usersQuery', usersQuery);
+  // console.log('usersQuery', usersQuery);
 
   return usersQuery;
 };

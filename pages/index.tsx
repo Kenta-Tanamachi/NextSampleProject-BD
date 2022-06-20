@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -14,6 +15,20 @@ import { Audio } from 'react-loader-spinner';
 
 import Header from './Header';
 import getFireStoreSnapShot from '../ts/getFireStoreSnapShot';
+
+// レスポンスデータサンプル
+import responseData from '../ts/responseData';
+
+const calc = (weight) => {
+  let weightCalc = undefined;
+  if (order % 2 === 0) {
+    weightCalc = weight;
+  } else {
+    weightCalc = weight * 2;
+  }
+  // console.table(resJson);
+  console.log('weight', weightCalc);
+};
 
 // ルートインデックス
 const Home: NextPage = () => {
@@ -43,9 +58,13 @@ const Home: NextPage = () => {
   } = getFireStoreSnapShot(tableName, whereQuery);
   // console.log('resFS', resFS);
 
+  useEffect(() => {
+    onClickApiGet();
+  }, []);
+
   // onClickで発火するイベント。API通信（GET）を行う
   const onClickApiGet = async () => {
-    console.log('onClickApiGet');
+    // console.log('onClickApiGet');
 
     // console.log(imgElement);
     // console.log(imgElement.current);
@@ -83,10 +102,21 @@ const Home: NextPage = () => {
     const resJson: never = (await res.json()) as never;
     console.log('resJson', resJson);
 
-    console.log(apiSample);
+    // console.log(apiSample);
+    // No.が奇数のときにWightを2倍にする
+    const order = resJson.order;
+    console.log(order % 2 === 0);
+    let weight = undefined;
+    if (order % 2 === 0) {
+      weight = resJson.weight;
+    } else {
+      weight = resJson.weight * 2;
+    }
+
+    // weight = calc(order);
 
     // 履歴に追加
-    console.log('apiResponseHistory', apiResponseHistory);
+    // console.log('apiResponseHistory', apiResponseHistory);
     const apiResponseHistoryPayload: never[] =
       apiResponseHistory.concat() as never[];
     apiResponseHistoryPayload.push(resJson);
@@ -159,21 +189,35 @@ const Home: NextPage = () => {
           </div>
 
           {/* データ表示 */}
-          <div>No：{apiSample.order}</div>
-          <div>Name：「{apiSample.name}」</div>
+          <div className={styles.stringNo}>No：{apiSample.order}</div>
+          <div className={styles.stringName}>Name：「{apiSample.name}」</div>
           <br />
           <br />
 
           <div>画像URL</div>
-          <div>{apiSample.sprites?.front_default}</div>
+          <div className={styles.stringImg}>
+            {apiSample.sprites?.front_default}
+          </div>
           <br />
           <br />
 
           {/* イベント発火ボタン */}
-          <div>
-            <button onClick={onClickApiGet}>
-              ポケモンを捕まえる（API GET）
-            </button>
+          <div className={styles.buttonGet}>
+            <div>
+              <button onClick={onClickApiGet}>
+                ポケモンを捕まえる（API GET）
+              </button>
+            </div>
+            <div>
+              <button onClick={onClickApiGet}>
+                ポケモンを捕まえる（API GET）
+              </button>
+            </div>
+            <div>
+              <button onClick={onClickApiGet}>
+                ポケモンを捕まえる（API GET）
+              </button>
+            </div>
           </div>
           <br />
           <br />
